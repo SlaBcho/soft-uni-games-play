@@ -22,10 +22,12 @@ const Home = () => {
             <img src="./images/four_slider_img01.png" alt="hero" />
             <div id="home-page">
                 <h1>Latest Games</h1>
-                {/* Display div: with information about every game (if any) */}
-                {games.map(el => <LatestGame game={el} />)}
-                {/* Display paragraph: If there is no games */}
-                <p className="no-articles">No games yet</p>
+
+                {games.length > 0 
+                ? games.map(el => <LatestGame key={el._id} game={el} />)
+                : <p className="no-articles">No games yet</p>
+                }
+                
             </div>
         </section>
     );
