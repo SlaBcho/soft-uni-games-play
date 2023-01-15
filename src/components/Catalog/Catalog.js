@@ -7,7 +7,7 @@ const Catalog = ({games}) => {
             <h1>All Games</h1>
             {/* Display div: with information about every game (if any) */}
             {games.length > 0
-            ? games.map(el => <CatalogItem game={el} />)
+            ? games.map(el =>  <CatalogItem key={el._id} game={el} />)
             : <h3 className="no-articles">No articles yet</h3>
             }
             

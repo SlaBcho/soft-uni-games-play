@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 /* eslint-disable jsx-a11y/alt-text */
 const LatestGame = ({ game }) => {
     return (
@@ -14,9 +16,9 @@ const LatestGame = ({ game }) => {
                 <span>☆</span>
             </div>
             <div className="data-buttons">
-                <a href="/#" className="btn details-btn">
+                <Link to={`/catalog/${game._id}`} className="details-button">
                     Details
-                </a>
+                </Link>
             </div>
         </div>
     );
