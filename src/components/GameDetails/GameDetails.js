@@ -2,17 +2,17 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 
-const GameDetails = ({ 
+const GameDetails = ({
     games,
     addComment
- }) => {
+}) => {
     const { gameId } = useParams();
     const [comment, setComment] = useState({
         username: '',
         comment: ''
     });
 
-    const game = games.find(el => el._id === gameId);
+    const game = games.find(el => el._id == gameId);
 
     const addCommentHandler = (e) => {
         e.preventDefault();
@@ -43,22 +43,18 @@ const GameDetails = ({
                     by side with humans. A human cop is forced to work with an Orc to find a
                     weapon everyone is prepared to kill for.
                 </p>
-                {/* Bonus ( for Guests and Users ) */}
                 <div className="details-comments">
                     <h2>Comments:</h2>
                     <ul>
-                        {/* list all comments for current game (If any) */}
-                        <li className="comment">
-                            <p>Content: I rate this one quite highly.</p>
-                        </li>
-                        <li className="comment">
-                            <p>Content: The best game.</p>
-                        </li>
+                        {game.comments?.map(x =>
+                            <li className="comment">
+                                <p>{x}</p>
+                            </li>)}
                     </ul>
-                    {/* Display paragraph: If there are no games in the database */}
-                    <p className="no-comment">No comments.</p>
+                    {!game.comments &&
+                        <p className="no-comment">No comments.</p>
+                    }
                 </div>
-                {/* Edit/Delete buttons ( Only for creator of this game ) */}
                 <div className="buttons">
                     <a href="/#" className="button">
                         Edit
@@ -82,10 +78,10 @@ const GameDetails = ({
                 <form className="form" onSubmit={addCommentHandler}>
                     <textarea
                         name="comment"
-                        placeholder="Comment......" 
+                        placeholder="Comment......"
                         onChange={onChange}
                         value={comment.comment}
-                        />
+                    />
                     <input
                         className="btn submit"
                         type="submit"
