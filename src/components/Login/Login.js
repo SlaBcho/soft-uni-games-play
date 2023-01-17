@@ -1,7 +1,10 @@
-import { login } from '../../services/outservice'; 
+import { useContext } from 'react';
+import * as authService from '../../services/authService'; 
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
+    const {userLogin} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmit = (e) => {
@@ -12,9 +15,10 @@ const Login = () => {
             password
         } = Object.fromEntries(new FormData(e.target));
 
-        login(email, password)
+        authService.login(email, password)
             .then(authData => {
-                console.log(authData);
+                userLogin(authData);
+                navigate('/');
             })
             .catch(() => {
                 navigate('/404');
