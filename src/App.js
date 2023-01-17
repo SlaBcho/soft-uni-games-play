@@ -14,19 +14,22 @@ import Register from './components/Register/Register';
 import GameDetails from './components/GameDetails/GameDetails';
 import Logout from './components/Logout/Logout';
 
+import {useLocalStorage} from './hooks/useLocalStorage';
+
 
 
 function App() {
     const [games, setGames] = useState([]);
-    const [auth, setAuth] = useState({});
+    const [auth, setAuth] = useLocalStorage('auth', {});
     const navigate = useNavigate();
 
     const userLogin = (authData) => {
         setAuth(authData);
     };
+    
     const userLogout = () => {
         setAuth({});
-    }
+    };
 
     const addComment = (gameId, comment) => {
         setGames(state => {

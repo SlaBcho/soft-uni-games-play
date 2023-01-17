@@ -1,17 +1,17 @@
 import { useContext } from 'react';
-import * as authService from '../../services/authService'; 
+import * as authService from '../../services/authService';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
-    const {userLogin} = useContext(AuthContext);
+    const { userLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmit = (e) => {
         e.preventDefault();
 
         const {
-            email, 
+            email,
             password
         } = Object.fromEntries(new FormData(e.target));
 
@@ -32,10 +32,20 @@ const Login = () => {
                     <div className="brand-logo" />
                     <h1>Login</h1>
                     <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Sokka@gmail.com" />
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Sokka@gmail.com" />
                     <label htmlFor="login-pass">Password:</label>
-                    <input type="password" id="login-password" name="password" />
-                    <input type="submit" className="btn submit" defaultValue="Login" />
+                    <input
+                        type="password"
+                        id="login-password"
+                        name="password" />
+                    <input
+                        type="submit"
+                        className="btn submit"
+                        value="Login" />
                     <p className="field">
                         <span>
                             If you don't have profile click <Link to="/register">here</Link>
