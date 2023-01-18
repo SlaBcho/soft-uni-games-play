@@ -1,12 +1,17 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 const GameDetails = ({
     games,
     addComment
 }) => {
+    const {user} = useContext(AuthContext);
     const { gameId } = useParams();
+    
     const [comment, setComment] = useState({
         username: '',
         comment: ''
@@ -18,6 +23,7 @@ const GameDetails = ({
     });
 
     const game = games.find(el => el._id === gameId);
+    const isOwner = game._ownerId === user._id;
 
     const addCommentHandler = (e) => {
         e.preventDefault();
@@ -69,18 +75,19 @@ const GameDetails = ({
                     {!game.comments &&
                         <p className="no-comment">No comments.</p>
                     }
-                </div>
-                <div className="buttons">
-                    <a href="/#" className="button">
+                </div> 
+                {isOwner ? <div className="buttons">
+                    <Link to={`/games/${gameId}/edit`} className="button">
                         Edit
-                    </a>
+                    </Link>
                     <a href="/#" className="button">
                         Delete
                     </a>
                 </div>
+                : null}
+                
             </div>
-            {/* Bonus */}
-            {/* Add Comment ( Only for logged-in users, which is not creators of the current game ) */}
+            
             <article className="create-comment">
                 <label>Add new comment:</label>
                 <form className="form" onSubmit={addCommentHandler}>

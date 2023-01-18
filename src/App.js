@@ -7,6 +7,7 @@ import { GameContext } from './context/GameContext';
 
 import Catalog from './components/Catalog/Catalog';
 import CreateGame from './components/CreateGame/CreateGame';
+import EditGame from './components/EditGame/EditGame';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
@@ -54,6 +55,10 @@ function App() {
         navigate('/catalog');
     };
 
+    const gameEdit = (gameId, gameData) => {
+        setGames(state => state.map(x=> x._id === gameId ? gameData : x));
+    };
+
     useEffect(() => {
         gameService.getAll()
             .then(result => {
@@ -65,7 +70,7 @@ function App() {
         <AuthContext.Provider value={{ user: auth, userLogin, userLogout }}>
             <div className="app-wrapper">
                 <Header />
-                <GameContext.Provider value={{games, addGameHandler}}>
+                <GameContext.Provider value={{games, addGameHandler, gameEdit}}>
                     <main id="main-content">
                         <Routes>
                             <Route path="/" element={<Home games={games} />} />
@@ -73,6 +78,7 @@ function App() {
                             <Route path="/register" element={<Register />} />
                             <Route path="/logout" element={<Logout />} />
                             <Route path="/create" element={<CreateGame />} />
+                            <Route path="/games/:gameId/edit" element={<EditGame />} />
                             <Route path="/catalog" element={<Catalog games={games} />} />
                             <Route path="/catalog/:gameId"
                                 element={<GameDetails
